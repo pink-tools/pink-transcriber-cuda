@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pink-transcriber-cuda"
+version = "1.0.0"
+description = "High-performance voice transcription service using OpenAI Whisper Large-v3 with CUDA acceleration"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10,<=3.12"
+authors = [
+    {name = "pinkhairedboy", email = "p.nkhaired@gmail.com"}
+]
+keywords = ["transcription", "speech-to-text", "asr", "whisper", "faster-whisper", "cuda"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Sound/Audio :: Speech",
+]
+
+dependencies = [
+    "faster-whisper",
+    "torch",
+    "ctranslate2",
+    "nvidia-cudnn-cu12; sys_platform == 'linux'",
+    "nvidia-cublas-cu12; sys_platform == 'linux'",
+    "setproctitle>=1.3.0",
+    "psutil>=6.1.0",
+]
+
+[project.scripts]
+pink-transcriber = "pink_transcriber.cli.client:main"
+pink-transcriber-server = "pink_transcriber.cli.server:cli_main"
+
+[project.urls]
+Homepage = "https://github.com/pinkhairedboy/pink-transcriber-cuda"
+Repository = "https://github.com/pinkhairedboy/pink-transcriber-cuda"
+
+[tool.uv]
+extra-index-url = ["https://download.pytorch.org/whl/cu126"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
